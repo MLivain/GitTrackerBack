@@ -19,7 +19,7 @@ public class UserDao {
 
     @NotNull
     @NotBlank
-    @Column
+    @Column(unique=true)
     private String username;
 
     @NotNull
@@ -37,12 +37,14 @@ public class UserDao {
     private String email;
    
 
-	@Column(name = "github_token")
-    private String github_token;
-	
+	@Column(name = "githubToken")
+    private String githubToken;
+
+    @JsonIgnore
 	@OneToMany(mappedBy = "id")
     private List<Issue> issues = new ArrayList<Issue>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Role> roles = new ArrayList<Role>();
     
@@ -86,12 +88,12 @@ public class UserDao {
 		this.email = email;
 	}
 
-	public String getGithub_token() {
-		return github_token;
+	public String getGithubToken() {
+		return githubToken;
 	}
 
-	public void setGithub_token(String github_token) {
-		this.github_token = github_token;
+	public void setGithub_token(String githubToken) {
+		this.githubToken = githubToken;
 	}
 
 	public List<Issue> getIssues() {

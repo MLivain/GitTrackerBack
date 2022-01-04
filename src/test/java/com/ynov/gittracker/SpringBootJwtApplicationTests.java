@@ -1,4 +1,4 @@
-package com.techgeeknext;
+package com.ynov.gittracker;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

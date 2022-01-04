@@ -25,12 +25,12 @@ public class Project {
     
     @NotNull
 	@ManyToOne
-    @JoinColumn(name="pm_id")
-    private UserDao project_manager;
+    @JoinColumn(name="pmId")
+    private UserDao projectManager;
     
     @NotNull
     @NotBlank
-    @Column(name="git_url")
+    @Column(name="gitUrl")
     private String gitUrl;
     
 
@@ -46,17 +46,14 @@ public class Project {
     
     @NotNull
     @NotBlank
-    @Column(name="short_description")
+    @Column(name="shortDescription")
     private String shortDescription;
 
    
-
-    @FutureOrPresent
     @Column(name="created_at")
     private Date createdAt;
 
-	
-    @FutureOrPresent
+    
     @Column(name="updated_at")
     private Date updateAt;
 
@@ -141,11 +138,11 @@ public class Project {
 	}
 
 	public UserDao getProjectManager() {
-		return project_manager;
+		return projectManager;
 	}
 
 	public void setProjectManager(UserDao projectManager) {
-		this.project_manager = projectManager;
+		this.projectManager = projectManager;
 	}
 
 	public String getGitUrl() {

@@ -37,20 +37,15 @@ public class Event {
     @Column(name="title")
     private String title;
 
-    @NotNull
-    @NotBlank
-    @FutureOrPresent
+    
     @Column(name="created_at")
     private Date createdAt;
 
-    @NotNull
-    @NotBlank
-    @FutureOrPresent
+    
     @Column(name="updated_at")
     private Date updateAt;
 
     @NotNull
-    @NotBlank
     @ManyToOne
     @JoinColumn(name="author")
     private UserDao author;

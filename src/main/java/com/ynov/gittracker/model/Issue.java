@@ -53,15 +53,11 @@ public class Issue {
 	@JoinColumn(name="author_id", nullable=false)
 	private UserDao author; 
     
-	@NotNull
-    @NotBlank
-    @FutureOrPresent
+
     @Column(name="created_at")
     private Date createdAt;
 
-    @NotNull
-    @NotBlank
-    @FutureOrPresent
+
     @Column(name="updated_at")
     private Date updateAt;
 

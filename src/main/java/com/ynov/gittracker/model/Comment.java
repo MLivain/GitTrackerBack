@@ -30,15 +30,10 @@ public class Comment {
 	@Column(name="content")
 	private String content; 
 
-	@NotNull
-    @NotBlank
-    @FutureOrPresent
+
     @Column(name="created_at")
     private Date createdAt;
 
-    @NotNull
-    @NotBlank
-    @FutureOrPresent
     @Column(name="updated_at")
     private Date updateAt;
 

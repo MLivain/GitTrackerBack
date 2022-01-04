@@ -49,7 +49,7 @@ public class UserService implements UserDetailsService
     }
 
     public UserDao getUserByUsername(String username) {
-        return userRepository.findById(username).orElse(null);
+        return userRepository.findByUsername(username);
     }
 
     public List<UserDao> getAllUsers() { return (List<UserDao>) userRepository.findAll(); }

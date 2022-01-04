@@ -22,12 +22,12 @@ public class Role {
 	
 	@NotNull
 	@ManyToOne 
-	@JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name="userId", nullable=false)
 	private UserDao user; 
 	
 	@NotNull
 	@ManyToOne 
-	@JoinColumn(name="project_id", nullable=false)
+	@JoinColumn(name="projectId", nullable=false)
 	private Project project; 
 	
 	@NotNull

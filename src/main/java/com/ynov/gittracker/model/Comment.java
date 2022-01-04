@@ -9,11 +9,10 @@ import java.util.*;
 @Entity
 @Table(name = "comment")
 public class Comment {
-	@Id 
-	@Column(name="id")
-	@Type(type="uuid-char")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private UUID id;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
 	@NotNull
 	@ManyToOne 
@@ -46,11 +45,11 @@ public class Comment {
 		this.setContent(message);
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return id; 
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id; 
 	}
 

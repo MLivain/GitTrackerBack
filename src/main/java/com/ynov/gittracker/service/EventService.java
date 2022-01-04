@@ -18,6 +18,7 @@ public class EventService
 
     public void create(String type, UserDao author, String action, Object entity) {
 
+        System.out.println(author.getUsername());
         Event event = new Event();
         event.setCreatedAt(new Date());
         event.setUpdateAt(new Date());

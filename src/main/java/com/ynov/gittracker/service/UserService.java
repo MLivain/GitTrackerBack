@@ -99,25 +99,7 @@ public class UserService implements UserDetailsService
         }
     }
 
-	public List<Issue> getIssuesByUserId(String id) {
-		return userRepository.findById(id).orElse(null).getIssues();
-	}
 
-	public @Valid UserDao addIssueForUser(String id, UUID research) {
-		UserDao user = this.getUserByUsername(id);
 
-        if (user != null) {
-            List<Issue> listIssues = user.getIssues();
-            Issue issueToAdd = issueRepository.findById(research).orElse(null);
 
-            if (issueToAdd != null) {
-            	listIssues.add(issueToAdd);
-                user.setIssues(listIssues);
-            }
-
-            userRepository.save(user);
-        }
-
-        return user;
-	}
 }

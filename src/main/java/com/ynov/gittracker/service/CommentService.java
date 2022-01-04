@@ -47,7 +47,7 @@ public class CommentService {
 		return commentRepository.findAll();
 	}
 
-	public Comment getCommentByCommentId(UUID id) {
+	public Comment getCommentByCommentId(long id) {
 		return commentRepository.findById(id).orElse(null);
 	}
 

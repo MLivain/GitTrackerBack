@@ -67,19 +67,17 @@ public class ProjectController {
         project.setGitUrl("UnUrlGIT");
         project.setCreatedAt(new Date());
         project.setUpdateAt(new Date());
-
+        projectService.create(project);
         Role role = new Role();
         role.setProject(project);
         role.setUser(loggedUser);
         role.setRole("ADMIN");
         roleService.createOrUpdate(role);
-        
-        projectService.create(project);
     }
 
     @Operation(summary = "Récupération d'un projet")
     @RequestMapping(path = "/project", method = RequestMethod.GET)
-    public Project getExit(@RequestParam(value = "id") UUID id) {
+    public Project getExit(@RequestParam(value = "id") long id) {
         return projectService.getProjectByProjectId(id);
     }
 
@@ -118,7 +116,7 @@ public class ProjectController {
     @Operation(summary = "Mise à jour d'un projet")
     @RequestMapping(path = "/project", method = RequestMethod.PUT)
     public Object updateProject(@Valid 
-    		@RequestParam(value = "id") UUID id,
+    		@RequestParam(value = "id") long id,
     		@RequestParam(value = "name") String name,
     		@RequestParam(value = "shortDescription") String shortDescription,
     		@RequestParam(value = "content") String content,
@@ -155,27 +153,29 @@ public class ProjectController {
     
     
 
-    @Operation(summary = "Ajout d'une issue à un projet")
-    @RequestMapping(path = "/project/issues", method = RequestMethod.PUT)
-    public Project proposeIssueForProject(@Valid @RequestParam(value = "id") UUID id, @RequestParam(value = "user_id") String username, @RequestParam(value = "issue_id") UUID issue_id) throws Exception {
-    	UserDao user = this.userService.getUserByUsername(username);
-        Project project = this.projectService.getProjectByProjectId(id);
-        Issue issue = this.issueService.getIssueByIssueId(issue_id);
-        
-        if (user == null) {
-            throw new Exception("user not found");
-        }
-
-        if (project == null) {
-            throw new Exception("project not found");
-        }
-        
-        if (issue == null) {
-            throw new Exception("issue not found");
-        }
-        
-        return projectService.addUserIssueToProject(project, issue);
-    }
+//    @Operation(summary = "Ajout d'une issue à un projet")
+//    @RequestMapping(path = "/project/issues", method = RequestMethod.PUT)
+//    public Project proposeIssueForProject(@Valid @RequestParam(value = "id") long id,
+//    		@RequestParam(value = "user_id") String username,
+//    		@RequestParam(value = "issueId") long issueId) throws Exception {
+//    	UserDao user = this.userService.getUserByUsername(username);
+//        Project project = this.projectService.getProjectByProjectId(id);
+//        Issue issue = this.issueService.getIssueByIssueId(issueId);
+//        
+//        if (user == null) {
+//            throw new Exception("user not found");
+//        }
+//
+//        if (project == null) {
+//            throw new Exception("project not found");
+//        }
+//        
+//        if (issue == null) {
+//            throw new Exception("issue not found");
+//        }
+//        
+//        return projectService.addUserIssueToProject(project, issue);
+//    }
 
     @Operation(summary = "Récupération de touts les projets")
     @RequestMapping(path = "/projects", method = RequestMethod.GET)
@@ -185,13 +185,15 @@ public class ProjectController {
 
     @Operation(summary = "Suppression d'un projet à partir de son id")
     @RequestMapping(path = "/project", method = RequestMethod.DELETE)
-    public void deleteProject(@RequestParam(value = "id") UUID id) {
+    public void deleteProject(@RequestParam(value = "id") long id) {
     	projectService.delete(id);
     }
     
     @Operation(summary = "Ajout du role utilisateur à un projet")
     @RequestMapping(path = "/project/roles", method = RequestMethod.PUT)
-    public Object addRoleToProject(@Valid @RequestParam(value = "id") UUID id, @RequestParam(value = "username") String username, @RequestParam(value = "role_string") String role_string) throws Exception {
+    public Object addRoleToProject(@Valid @RequestParam(value = "id") long id,
+    		@RequestParam(value = "username") String username,
+    		@RequestParam(value = "role_string") String role_string) throws Exception {
         Authentication loggedUser = this.securityService.getLoggedUser();
         UserDao user = userService.getUserByUsername(loggedUser.getName());
         UserDao userToAdd = userService.getUserByUsername(username);

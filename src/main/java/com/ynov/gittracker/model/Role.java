@@ -13,11 +13,9 @@ import java.util.UUID;
 @Table(name = "role")
 public class Role {
 	
-	@Id 
-	@Column(name="id")
-	@Type(type="uuid-char")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
 	
 	@NotNull
@@ -59,11 +57,11 @@ public class Role {
 		this.role = role;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	} 
 	

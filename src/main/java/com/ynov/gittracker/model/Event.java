@@ -27,10 +27,8 @@ public class Event {
     public String EVENT_ACTION_REFUSE = "refused";
 
     @Id
-    @Column(name="id")
-    @Type(type = "uuid-char")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotNull
     @NotBlank
@@ -47,8 +45,8 @@ public class Event {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name="author")
-    private UserDao author;
+    @JoinColumn(name="user_id")
+    private UserDao user;
 
     @NotNull
     @NotBlank
@@ -62,11 +60,11 @@ public class Event {
 
     // ------------------------ >
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -95,11 +93,11 @@ public class Event {
     }
 
     public UserDao getAuthor() {
-        return author;
+        return user;
     }
 
     public void setAuthor(UserDao author) {
-        this.author = author;
+        this.user = author;
     }
 
     public String getEntityId() {

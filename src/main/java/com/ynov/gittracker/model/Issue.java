@@ -27,11 +27,9 @@ import org.hibernate.annotations.Type;
 public class Issue {
 
 
-    @Id
-    @Column(name="id")
-    @Type(type = "uuid-char")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotNull
     @NotBlank
@@ -53,7 +51,11 @@ public class Issue {
 	@JoinColumn(name="author_id", nullable=false)
 	private UserDao author; 
     
-
+    @NotNull
+	@ManyToOne
+	@JoinColumn(name="project_id", nullable=false)
+	private Project project; 
+    
     @Column(name="created_at")
     private Date createdAt;
 
@@ -61,15 +63,16 @@ public class Issue {
     @Column(name="updated_at")
     private Date updateAt;
 
-    @OneToMany
-    @JoinTable(name = "comment_id")
-    private List<Comment> comments;
+//    @OneToMany
+//    @JoinTable(name = "comment")
+//    @JoinColumn(referencedColumnName="id")
+//    private List<Comment> comments;
     
-	public UUID getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -120,15 +123,22 @@ public class Issue {
 	public void setAuthor(UserDao author) {
 		this.author = author;
 	}
+//
+//	public List<Comment> getComments() {
+//		return comments;
+//	}
+//
+//	public void setComments(List<Comment> comments) {
+//		this.comments = comments;
+//	}
 
-	public List<Comment> getComments() {
-		return comments;
+	public Project getProject() {
+		return project;
 	}
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
-	
     
 }

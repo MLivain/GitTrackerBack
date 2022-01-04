@@ -13,10 +13,9 @@ import java.util.UUID;
 public class Project {
 
     @Id
-    @Column(name="id")
-    @Type(type = "uuid-char")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
 
     @NotNull
     @NotBlank
@@ -57,18 +56,15 @@ public class Project {
     @Column(name="updated_at")
     private Date updateAt;
 
-    @OneToMany
-    @JoinTable(name = "issue",
-            joinColumns = @JoinColumn(name = "issue_id"),
-            inverseJoinColumns = @JoinColumn(name = "issue"))
-    
-    private List<Issue> issue;
+//    @OneToMany
+//    @JoinColumn(referencedColumnName="id")
+//    private List<Issue> issues;
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -97,13 +93,13 @@ public class Project {
 		this.shortDescription = short_description;
 	}
 
-	public List<Issue> getIssues() {
-		return issue;
-	}
-
-	public void setIssues(List<Issue> issue) {
-		this.issue = issue;
-	}
+//	public List<Issue> getIssues() {
+//		return issues;
+//	}
+//
+//	public void setIssues(List<Issue> issues) {
+//		this.issues = issues;
+//	}
 
 	public Date getCreatedAt() {
         return createdAt;

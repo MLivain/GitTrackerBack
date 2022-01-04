@@ -22,6 +22,8 @@ public class ProjectService
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private IssueService issueService;
     // --------------------- >
 
     public Project create(Project project) {
@@ -38,14 +40,14 @@ public class ProjectService
         return projectRepository.save(project);
     }
 
-    public Project getProjectByProjectId(UUID id) {
+    public Project getProjectByProjectId(long id) {
         return projectRepository.findById(id).orElse(null);
     }
 
 
     public List<Project> getAllProjects() { return projectRepository.findAll(); }
 
-    public void delete(UUID id) {
+    public void delete(long id) {
     	Project deleteExit = this.getProjectByProjectId(id);
 
         if (deleteExit == null) {
@@ -57,40 +59,5 @@ public class ProjectService
         projectRepository.delete(deleteExit);
     }
 
-   
 
-
-
-	public Project addUserIssueToProject(Project project, Issue issue) {
-		if (project != null) {
-            List<Issue> listIssue = project.getIssues();
-
-            if (issue != null) {
-            	listIssue.add(issue);
-                project.setIssues(listIssue);
-            }
-
-            projectRepository.save(project);
-        }
-
-        return project;
-	}
-
-	public Project deleteIssueForProject(Project project, UserDao user, Issue issue) {
-		if (project != null) {
-			List<Issue> listIssue = project.getIssues();
-
-            if (issue != null) {
-            	listIssue.remove(issue);
-                project.setIssues(listIssue);
-            }
-
-            projectRepository.save(project);
-        }
-
-        Event event = new Event();
-        this.eventService.create(event.EVENT_USER, user, event.EVENT_ACTION_CREATE_ISSUE, project.getId());
-
-        return project;
-	}
 }

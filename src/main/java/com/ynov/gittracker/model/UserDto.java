@@ -9,7 +9,6 @@ public class UserDto {
     private String github_token;
     private String email;
     private List<Role> roles;
-    private List<Issue> issues;
 
     public String getUsername() {
         return username;
@@ -42,8 +41,5 @@ public class UserDto {
 		return roles;
 	}
     
-    public List<Issue> getIssues() {
-		return issues;
-	}
 
 }

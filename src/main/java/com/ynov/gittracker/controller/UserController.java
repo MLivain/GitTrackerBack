@@ -63,20 +63,20 @@ public class UserController {
         userService.delete(username);
     }
 
-    @Operation(summary = "Issues de l'auteur ")
-    @RequestMapping(path = "/user/issues", method = RequestMethod.GET)
-    public List<Issue> getissuesByAuthor(@RequestParam(value = "id") String id) {
-        return userService.getIssuesByUserId(id);
-    }
+//    @Operation(summary = "Issues de l'auteur ")
+//    @RequestMapping(path = "/user/issues", method = RequestMethod.GET)
+//    public List<Issue> getissuesByAuthor(@RequestParam(value = "id") String id) {
+//        return userService.getIssuesByUserId(id);
+//    }
 
     
     
-    @Valid
-    @Operation(summary = "Ajouter une issue à l'utilisateur")
-    @RequestMapping(path = "/user/issues", method = RequestMethod.PUT)
-    public UserDao addUserForExit(@RequestParam(value = "id") String id, @RequestParam(value = "research") UUID research) {
-        return userService.addIssueForUser(id, research);
-    }
+//    @Valid
+//    @Operation(summary = "Ajouter une issue à l'utilisateur")
+//    @RequestMapping(path = "/user/issues", method = RequestMethod.PUT)
+//    public UserDao addUserForExit(@RequestParam(value = "id") String id, @RequestParam(value = "research") long research) {
+//        return userService.addIssueForUser(id, research);
+//    }
 
     @Operation(summary = "Mise à jour du mot de passe d'un utilisateur")
     @RequestMapping(path = "/user/updatePassword", method = RequestMethod.GET)

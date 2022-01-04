@@ -40,9 +40,6 @@ public class UserDao {
 	@Column(name = "githubToken")
     private String githubToken;
 
-    @JsonIgnore
-	@OneToMany(mappedBy = "id")
-    private List<Issue> issues = new ArrayList<Issue>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
@@ -96,13 +93,6 @@ public class UserDao {
 		this.githubToken = githubToken;
 	}
 
-	public List<Issue> getIssues() {
-		return issues;
-	}
-
-	public void setIssues(List<Issue> issues) {
-		this.issues = issues;
-	}
 
 	public List<Role> getRoles() {
 		return roles;

@@ -14,6 +14,7 @@ import com.ynov.gittracker.model.Comment;
 import com.ynov.gittracker.model.Issue;
 import com.ynov.gittracker.model.UserDao;
 import com.ynov.gittracker.service.CommentService;
+import com.ynov.gittracker.service.IssueService;
 import com.ynov.gittracker.service.SecurityService;
 import com.ynov.gittracker.service.UserService;
 
@@ -32,15 +33,16 @@ public class CommentController {
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private IssueService issueService;
+    
     // --------------------- //
 
     @RequestMapping(path="/add-test-comment", method = RequestMethod.GET)
-    public void addTestComment(Issue issue) {
+    public void addTestComment() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDao loggedUser = userService.getUserByUsername(authentication.getName());
-        
-        List<UserDao> likes = new ArrayList<UserDao>();
-
+        Issue issue = issueService.getAllIssues().get(0);
         Comment comment = new Comment();
         comment.setAuthor(loggedUser);
         comment.setIssue(issue);
@@ -48,14 +50,14 @@ public class CommentController {
         commentService.create(comment);
     }
 
-    @Operation(summary = "Récupération des commentaires pour une issue")
-    @RequestMapping(path="/", method= RequestMethod.GET)
-    public List<Comment> getCommentsForProject(@RequestParam(value="issue") Issue issue) {
-    	if (issue != null) {
-    		return issue.getComments();
-    	}
-    	return null;
-    }
+//    @Operation(summary = "Récupération des commentaires pour une issue")
+//    @RequestMapping(path="/", method= RequestMethod.GET)
+//    public List<Comment> getCommentsForProject(@RequestParam(value="issue") Issue issue) {
+//    	if (issue != null) {
+//    		return issue.getComments();
+//    	}
+//    	return null;
+//    }
 
     // TODO : 
     // @Operation(summary = "Récupération des commentaires écrit par un user")

@@ -52,7 +52,7 @@ public class ProjectController {
     JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
 
     // --------------------- >
-
+    @CrossOrigin
     @RequestMapping(path = "/add-test-project", method = RequestMethod.GET)
     public void addTestProject(@RequestHeader (name="Authorization") String token) {
     	token = token.replace("Bearer ", "");
@@ -78,6 +78,7 @@ public class ProjectController {
     }
 
 
+    @CrossOrigin
     @Operation(summary = "Création d'un projet")
     @RequestMapping(path = "/project", method = RequestMethod.POST)
     @ResponseBody
@@ -109,7 +110,8 @@ public class ProjectController {
         
         return project;
     }
-
+    
+    @CrossOrigin
     @Operation(summary = "Mise à jour d'un projet")
     @RequestMapping(path = "/project", method = RequestMethod.PUT)
     public Object updateProject(@Valid 
@@ -173,25 +175,25 @@ public class ProjectController {
 //        
 //        return projectService.addUserIssueToProject(project, issue);
 //    }
-
+    @CrossOrigin
     @Operation(summary = "Récupération de touts les projets")
     @RequestMapping(path = "/projects", method = RequestMethod.GET)
     public List<Project> getProjects() {
         return (List<Project>) projectService.getAllProjects();
     }
-    
+    @CrossOrigin
     @Operation(summary = "Récupération d'un projet")
     @RequestMapping(path = "/project", method = RequestMethod.GET)
     public Project getProject(@RequestParam(value = "id") long id) {
         return projectService.getProjectByProjectId(id);
     }
-
+    @CrossOrigin
     @Operation(summary = "Suppression d'un projet à partir de son id")
     @RequestMapping(path = "/project", method = RequestMethod.DELETE)
     public void deleteProject(@RequestParam(value = "id") long id) {
     	projectService.delete(id);
     }
-    
+    @CrossOrigin
     @Operation(summary = "Ajout du role utilisateur à un projet")
     @RequestMapping(path = "/project/roles", method = RequestMethod.PUT)
     public Object addRoleToProject(@Valid @RequestParam(value = "id") long id,

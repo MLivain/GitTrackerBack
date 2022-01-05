@@ -30,7 +30,7 @@ public class UserController {
     private SecurityService securityService;
 
     // --------------------- >
-
+    @CrossOrigin
     @RequestMapping(path = "/add-test-user", method = RequestMethod.GET)
     public UserDao addTestUser() {
     	UserDao user = new UserDao();
@@ -41,24 +41,24 @@ public class UserController {
         userService.createOrUpdate(user);
         return user;
     }
-
+    @CrossOrigin
     @RequestMapping(path = "/user", method = RequestMethod.GET)
     public UserDao getUser(@RequestParam(value = "id") String username) {
         return userService.getUserByUsername(username);
     }
-
+    @CrossOrigin
     @Operation(summary = "Création ou mise à jour d'un utilisateur")
     @RequestMapping(path = "/user", method = RequestMethod.PUT)
     public UserDao addOrUpdateUser(@Valid @RequestBody UserDao user) {
         return userService.createOrUpdate(user);
     }
-
+    @CrossOrigin
     @Operation(summary = "Récupération de tous les utilisateurs")
     @RequestMapping(path = "/users", method = RequestMethod.GET)
     public List<UserDao> getUsers() {
         return (List<UserDao>) userService.getAllUsers();
     }
-
+    @CrossOrigin
     @Operation(summary = "Suppression d'un utilisateur à partir de son username")
     @RequestMapping(path = "/user", method = RequestMethod.DELETE)
     public void deleteUser(@RequestParam(value = "username") String username) {
@@ -79,7 +79,7 @@ public class UserController {
 //    public UserDao addUserForExit(@RequestParam(value = "id") String id, @RequestParam(value = "research") long research) {
 //        return userService.addIssueForUser(id, research);
 //    }
-
+    @CrossOrigin
     @Operation(summary = "Mise à jour du mot de passe d'un utilisateur")
     @RequestMapping(path = "/user/updatePassword", method = RequestMethod.GET)
     public void setPassword(@RequestParam(value = "username") String username,

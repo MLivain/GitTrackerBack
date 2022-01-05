@@ -39,7 +39,7 @@ public class IssueController {
 
     JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
     // --------------------- >
-
+    @CrossOrigin
     @RequestMapping(path = "/add-test-issue", method = RequestMethod.GET)
     public void addTestIssue(@RequestHeader (name="Authorization") String token) {
     	token = token.replace("Bearer ", "");
@@ -57,7 +57,7 @@ public class IssueController {
         issueService.createOrUpdate(issue);
         
     }
-
+    @CrossOrigin
     @Operation(summary = "Récupération d'une issue")
     @RequestMapping(path = "/issue", method = RequestMethod.GET)
     public Issue getIssue(@RequestParam(value = "id") long id) {
@@ -65,6 +65,7 @@ public class IssueController {
     }
 
     @Valid
+    @CrossOrigin
     @Operation(summary = "Création ou mise à jour d'une issue")
     @RequestMapping(path = "/issue", method = RequestMethod.POST)
     public Issue addOrUpdateIssue(@Valid @RequestHeader (name="Authorization") String token,
@@ -86,19 +87,19 @@ public class IssueController {
         issue.setProject(project);
         return issueService.createOrUpdate(issue);
     }
-
+    @CrossOrigin
     @Operation(summary = "Auteur de l'issue")
     @RequestMapping(path = "/research/author", method = RequestMethod.GET)
     public UserDao getAuthorByIssue(@RequestParam(value = "id") long id) {
         return issueService.getIssueByIssueId(id).getAuthor();
     }
-
+    @CrossOrigin
     @Operation(summary = "Récupération de toutes les issues")
     @RequestMapping(path = "/issues", method = RequestMethod.GET)
     public List<Issue> getIssues() {
         return (List<Issue>) issueService.getAllIssues();
     }
-
+    @CrossOrigin
     @Operation(summary = "Suppression d'une issue à partir de son id")
     @RequestMapping(path = "/issue", method = RequestMethod.DELETE)
     public void deleteIssue(@RequestParam(value = "id") long id) {

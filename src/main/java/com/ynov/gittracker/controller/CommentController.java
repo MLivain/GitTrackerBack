@@ -43,7 +43,7 @@ public class CommentController {
 
     JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
     // --------------------- //
-
+    @CrossOrigin
     @RequestMapping(path="/add-test-comment", method = RequestMethod.GET)
     public void addTestComment(@RequestHeader (name="Authorization") String token) {
     	token = token.replace("Bearer ", "");
@@ -67,8 +67,7 @@ public class CommentController {
 //    	return null;
 //    }
 
-    
-    // @Operation(summary = "Modification d'un commentaire par l'auteur")
+    @CrossOrigin
     @RequestMapping(path="/comment", method= RequestMethod.PUT)
     public Comment updateComment(@Valid @RequestBody Comment comment) throws Exception {
         Authentication loggedUser = securityService.getLoggedUser();
@@ -80,13 +79,13 @@ public class CommentController {
 
         return commentService.update(comment);
     }
-    
+    @CrossOrigin
     @Operation(summary = "Récupération d'un commentaire")
     @RequestMapping(path = "/comment", method = RequestMethod.GET)
     public Comment getComment(@RequestParam(value = "id") long id) {
         return commentService.getCommentByCommentId(id);
     }
-    
+    @CrossOrigin
     @RequestMapping(path="/comment", method= RequestMethod.POST)
     public Comment createComment(@Valid @RequestHeader (name="Authorization") String token,
     		@RequestParam(value = "issue_id") long issue_id,
@@ -102,7 +101,7 @@ public class CommentController {
         comment.setContent(content);
         return commentService.create(comment);
     }
-    
+    @CrossOrigin
     @RequestMapping(path="/user/comments", method= RequestMethod.GET)
     public Comment getCommentsByUser(@Valid @RequestHeader (name="Authorization") String token) {
     	token = token.replace("Bearer ", "");
@@ -111,7 +110,7 @@ public class CommentController {
         UserDao loggedUser = userService.getUserByUsername(username);
         return commentService.getCommentsByUser(loggedUser);
     }
-    
+    @CrossOrigin
     @RequestMapping(path="/issue/comments", method= RequestMethod.GET)
     public Comment getCommentsByIssue(@Valid @RequestParam(value = "issue_id") long issue_id) {
     	Issue issue = issueService.getIssueByIssueId(issue_id);

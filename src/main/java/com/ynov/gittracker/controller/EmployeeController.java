@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmployeeController {
+	@CrossOrigin
     @RequestMapping(value = "/greeting", method = RequestMethod.GET)
     public String getEmployees() {
         return "Welcome!";

@@ -1,7 +1,5 @@
 package com.ynov.gittracker.service; 
 
-import com.ynov.gittracker.model.Comment;
-import com.ynov.gittracker.model.Event;
 import com.ynov.gittracker.model.*;
 import com.ynov.gittracker.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +47,14 @@ public class CommentService {
 
 	public Comment getCommentByCommentId(long id) {
 		return commentRepository.findById(id).orElse(null);
+	}
+
+	public Comment getCommentsByUser(UserDao loggedUser) {
+		return commentRepository.findByAuthor(loggedUser);
+	}
+
+	public Comment getCommentsByIssue(Issue issue) {
+		return commentRepository.findByIssue(issue);
 	}
 
 }

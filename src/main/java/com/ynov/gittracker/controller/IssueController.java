@@ -64,8 +64,24 @@ public class IssueController {
 
     @Valid
     @Operation(summary = "Création ou mise à jour d'une issue")
-    @RequestMapping(path = "/issue", method = RequestMethod.PUT)
-    public Issue addOrUpdateIssue(@RequestBody Issue issue) {
+    @RequestMapping(path = "/issue", method = RequestMethod.POST)
+    public Issue addOrUpdateIssue(@Valid @RequestHeader (name="Authorization") String token,
+    		@RequestParam(value = "project_id") long project_id, 
+    		@RequestParam(value = "title") String title,
+    		@RequestParam(value = "content") String content, 
+    		@RequestParam(value = "criticity") String criticity) {
+    	token = token.replace("Bearer ", "");
+    	System.out.println(token);
+		String username = jwtTokenUtil.getUsernameFromToken(token);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDao loggedUser = userService.getUserByUsername(username);
+        Project project = projectService.getProjectByProjectId(project_id);
+        Issue issue = new Issue();
+        issue.setTitle(title);
+        issue.setContent(content);
+        issue.setAuthor(loggedUser);
+        issue.setCriticity(criticity);
+        issue.setProject(project);
         return issueService.createOrUpdate(issue);
     }
 

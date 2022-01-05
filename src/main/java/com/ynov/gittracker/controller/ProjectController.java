@@ -46,7 +46,7 @@ public class ProjectController {
 
     @Autowired
     private SecurityService securityService;
-    
+        
     JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
 
     // --------------------- >
@@ -75,11 +75,6 @@ public class ProjectController {
         roleService.createOrUpdate(role);
     }
 
-    @Operation(summary = "Récupération d'un projet")
-    @RequestMapping(path = "/project", method = RequestMethod.GET)
-    public Project getExit(@RequestParam(value = "id") long id) {
-        return projectService.getProjectByProjectId(id);
-    }
 
     @Operation(summary = "Création d'un projet")
     @RequestMapping(path = "/project", method = RequestMethod.POST)
@@ -181,6 +176,12 @@ public class ProjectController {
     @RequestMapping(path = "/projects", method = RequestMethod.GET)
     public List<Project> getProjects() {
         return (List<Project>) projectService.getAllProjects();
+    }
+    
+    @Operation(summary = "Récupération d'un projet")
+    @RequestMapping(path = "/project", method = RequestMethod.GET)
+    public Project getProject(@RequestParam(value = "id") long id) {
+        return projectService.getProjectByProjectId(id);
     }
 
     @Operation(summary = "Suppression d'un projet à partir de son id")

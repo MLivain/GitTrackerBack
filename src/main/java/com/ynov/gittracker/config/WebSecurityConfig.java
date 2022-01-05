@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -54,19 +55,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 	
-	@Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(final CorsRegistry registry) {
-                registry.addMapping("/**").allowedMethods("*").allowedHeaders("*");
-            }
-        };
-    }
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
-		httpSecurity.cors().and()
+		httpSecurity
 				// dont authenticate this particular request
 				.authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
 				// all other requests need to be authenticated
@@ -78,5 +70,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		// see also: https://docs.spring.io/spring-security/site/docs/5.5.3/reference/html5/#csrf-when
+		httpSecurity.csrf().disable();
+
+        // if Spring MVC is on classpath and no CorsConfigurationSource is provided,
+        // Spring Security will use CORS configuration provided to Spring MVC
+		httpSecurity.cors(Customizer.withDefaults());
 	}
 }

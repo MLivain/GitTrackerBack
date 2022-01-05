@@ -27,7 +27,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CommentController {
 	 @Autowired
     private CommentService commentService;
